@@ -22,6 +22,54 @@ Lazy deletion preserves the tree structure while marking nodes as removed.
 - If the value exists but is marked deleted, it is reactivated.  
 - If the value exists and is present, no action is taken.
 
+void Tree::insertValue(int v){
+    if(!root){
+        Node* newNode = new Node;
+        newNode->value = v;
+        newNode->flag = true;
+        newNode->leftc = nullptr;
+        newNode->rightc = nullptr;
+
+        root = newNode;
+        return;
+    }
+
+    Node* curr = root;
+
+    while(true){
+        if(v == curr->value){
+            curr->flag = true;
+            return;
+        }
+        else if(v < curr->value){
+            if(curr->leftc == nullptr){
+                Node* newNode = new Node;
+                newNode->value = v;
+                newNode->flag = true;
+                newNode->leftc = nullptr;
+                newNode->rightc = nullptr;
+
+                curr->leftc = newNode;
+                return;
+            }
+            curr = curr->leftc;
+        }
+        else {
+            if(curr->rightc == nullptr){
+                Node* newNode = new Node;
+                newNode->value = v;
+                newNode->flag = true;
+                newNode->leftc = nullptr;
+                newNode->rightc = nullptr;
+
+                curr->rightc = newNode;  
+                return;
+            }
+            curr = curr->rightc;
+        }
+    }
+}  
+
 ### findValue(int value) → bool
 - Returns `true` if the node exists and is marked present.  
 - Returns `false` otherwise.
